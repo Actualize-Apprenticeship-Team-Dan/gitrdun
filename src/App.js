@@ -1,18 +1,46 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import AddTask from './AddTask';
+import TaskList from './TaskList';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      inputValue: '',
+      tasks: []
+    };
+  }
+
+  handleChange(value) {
+    this.setState({ inputValue: value });
+  }
+
+  addTask() {
+    var tasks = this.state.tasks.slice();
+    tasks.push(this.state.inputValue);
+    this.setState({
+      tasks: tasks,
+      inputValue: ''
+    });
+  }
+
   render() {
+    var title = 'Git R Dun';
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1>{title}</h1>
+      
+        <input
+          value={this.state.inputValue}
+          onChange={e => this.handleChange(e.target.value)}
+          placeholder="Enter a Task">
+        </input>
+        <button onClick={e => this.addTask()}>Add</button>
+
+        <TaskList tasks={this.state.tasks} />
       </div>
     );
   }
