@@ -32,16 +32,21 @@ class App extends Component {
     return (
       <div className="App">
         <h1>{title}</h1>
-      
-        <input
-          value={this.state.inputValue}
-          onChange={e => this.handleChange(e.target.value)}
-          placeholder="Enter a Task">
-        </input>
-        <button onClick={e => this.addTask()}>Add</button>
 
+        <div className="input-group">    
+          <input 
+            className="form-control"
+            value={this.state.inputValue}
+            onChange={e => this.handleChange(e.target.value)}
+            placeholder="Enter a Task">
+          </input>
+          <div className="input-group-append">
+            <button className="btn btn-primary" onClick={e => this.addTask()}>Add</button>
+          </div>
+        </div>
         <TaskList tasks={this.state.tasks} />
       </div>
+
     );
   }
 }
