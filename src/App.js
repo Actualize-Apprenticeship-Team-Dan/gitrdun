@@ -13,8 +13,8 @@ class App extends Component {
     };
   }
 
-  handleChange(value) {
-    this.setState({ inputValue: value });
+  handleChange(e) {
+    this.setState({ inputValue: e.target.value });
   }
 
   addTask() {
@@ -32,18 +32,11 @@ class App extends Component {
     return (
       <div className="App">
         <h1>{title}</h1>
-
-        <div className="input-group">    
-          <input 
-            className="form-control"
-            value={this.state.inputValue}
-            onChange={e => this.handleChange(e.target.value)}
-            placeholder="Enter a Task">
-          </input>
-          <div className="input-group-append">
-            <button className="btn btn-primary" onClick={e => this.addTask()}>Add</button>
-          </div>
-        </div>
+        <AddTask 
+          inputValue={this.state.inputValue} 
+          handleChange={this.handleChange.bind(this)}
+          addTask={this.addTask.bind(this)} 
+        />
         <TaskList tasks={this.state.tasks} />
       </div>
 
