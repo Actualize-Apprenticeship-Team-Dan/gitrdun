@@ -11,6 +11,7 @@ class TaskList extends Component {
               <Task 
                 task={task} 
                 key={index + task} 
+                removeTask={this.props.removeTask}
               /> 
         )}
        </div>
