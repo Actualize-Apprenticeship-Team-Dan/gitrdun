@@ -31,7 +31,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>{title}</h1>
+        <h1 className="title"> {title}</h1>
         <AddTask 
           inputValue={this.state.inputValue} 
           handleChange={this.handleChange.bind(this)}
