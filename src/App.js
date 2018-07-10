@@ -26,6 +26,13 @@ class App extends Component {
     });
   }
 
+  removeTask(removedTask) {
+    var filteredTasks = this.state.tasks.filter(task => (removedTask !== task))
+    this.setState({
+      tasks: filteredTasks
+    })
+  }
+
   render() {
     var title = 'Git R Dun';
 
@@ -37,7 +44,11 @@ class App extends Component {
           handleChange={this.handleChange.bind(this)}
           addTask={this.addTask.bind(this)} 
         />
-        <TaskList tasks={this.state.tasks} />
+        <TaskList 
+          tasks={this.state.tasks}
+          removeTask={this.removeTask.bind(this)}
+        />
+
       </div>
 
     );
