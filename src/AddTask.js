@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 class AddTask extends Component {
 
-  constructor (props){
-    super(props)
-  }
+showAlert(){
+  window.alert("Please add task");
+}
 
   render() {
     return (
@@ -19,7 +19,11 @@ class AddTask extends Component {
           <div className="input-group-append">
             <button 
               className="btn btn-primary" 
-              onClick={this.props.addTask}>Add</button>
+              onClick={
+                 this.props.inputValue === "" ? 
+                 this.showAlert:
+                 this.props.addTask
+              }>Add</button>
           </div>
         </div>
       </div>  
