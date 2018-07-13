@@ -42,7 +42,7 @@ class App extends Component {
       if(task.text === completedTask.text) {
         task.completed = !task.completed
       }
-    return task
+      return task
     })
     this.setState({
       tasks: updatedTasks
