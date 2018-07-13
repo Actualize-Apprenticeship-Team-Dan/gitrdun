@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 
 class AddTask extends Component {
 
-showAlert(){
-  window.alert("Please add task");
-}
+  showAlert(){
+    window.alert("Please add task");
+  }
 
+  onEnter(e) {
+   if (e.keyCode === 13) {
+    this.props.addTask()
+   }
+}
   render() {
     return (
       <div className="container">
@@ -14,6 +19,7 @@ showAlert(){
             className="form-control"
             value={this.props.inputValue}
             onChange={this.props.handleChange}
+            onKeyUp={(e) => this.onEnter(e)}
             placeholder="Enter a Task">
           </input>
           <div className="input-group-append">
