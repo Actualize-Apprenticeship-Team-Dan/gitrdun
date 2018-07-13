@@ -9,7 +9,7 @@ class App extends Component {
 
     this.state = {
       inputValue: '',
-      tasks: []
+      tasks: [],
     };
   }
 
@@ -19,7 +19,11 @@ class App extends Component {
 
   addTask() {
     var tasks = this.state.tasks.slice();
-    tasks.push(this.state.inputValue);
+    tasks.push({
+      text: this.state.inputValue,
+      completed: false
+    });
+
     this.setState({
       tasks: tasks,
       inputValue: ''
@@ -27,10 +31,23 @@ class App extends Component {
   }
 
   removeTask(removedTask) {
-    var filteredTasks = this.state.tasks.filter(task => (removedTask !== task))
+    var filteredTasks = this.state.tasks.filter(task => (removedTask !== task.text))
     this.setState({
       tasks: filteredTasks
     })
+  }
+
+  toggleCompleted(completedTask){
+    var updatedTasks = this.state.tasks.map(task => {
+      if(task.text === completedTask.text) {
+        task.completed = !task.completed
+      }
+    return task
+    })
+    this.setState({
+      tasks: updatedTasks
+    })
+
   }
 
   render() {
@@ -47,6 +64,7 @@ class App extends Component {
         <TaskList 
           tasks={this.state.tasks}
           removeTask={this.removeTask.bind(this)}
+          toggleCompleted={this.toggleCompleted.bind(this)}
         />
 
       </div>
