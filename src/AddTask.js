@@ -8,10 +8,11 @@ class AddTask extends Component {
   }
 
   onEnter(e) {
-   if (e.keyCode === 13) {
-    this.props.addTask()
-   }
-}
+    if (e.keyCode === 13) {
+      this.props.addTask()
+    }
+  }
+  
   render() {
     return (
       <div className="container">
