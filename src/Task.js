@@ -2,13 +2,14 @@ import React, {Component} from 'react'
 import './App.css';
 import FaTrashO from 'react-icons/lib/fa/trash-o';
 import FaThumbTack from 'react-icons/lib/fa/thumb-tack';
+import Moment from 'moment'
 
 class Task extends Component {
     render() {
         return( 
 	        <div className={`list-group-item ${this.props.task.completed ? 'list-group-item-success': ''}`}> 
             <FaThumbTack size={50} style={{paddingRight:10}} />
-            {this.props.task.text} 
+            {Moment(this.props.task.date).format('l')} {this.props.task.text}
 		        <button className="btn btn-small btn-danger float-right" onClick={() => this.props.removeTask(this.props.task.text)}><FaTrashO size={30} /></button> 
 		        <div className="form-check form-group float-right pr-5">
 			        <input 
