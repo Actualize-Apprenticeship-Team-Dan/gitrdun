@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import AddTask from './AddTask';
 import TaskList from './TaskList';
 import './App.css';
+import FaAngellist from 'react-icons/lib/fa/angellist';
+
 
 class App extends Component {
   constructor(props) {
@@ -21,6 +23,7 @@ class App extends Component {
     var tasks = this.state.tasks.slice();
     tasks.push({
       text: this.state.inputValue,
+      date: new Date(),
       completed: false
     });
 
@@ -55,7 +58,10 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1 className="title"> {title}</h1>
+        <h1 className="title"> 
+        <FaAngellist />
+        {title} 
+        </h1>
         <AddTask 
           inputValue={this.state.inputValue} 
           handleChange={this.handleChange.bind(this)}
