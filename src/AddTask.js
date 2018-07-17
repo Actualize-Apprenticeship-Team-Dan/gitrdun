@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FaPlusCircle from 'react-icons/lib/fa/plus-circle';
 
 class AddTask extends Component {
 
@@ -7,10 +8,11 @@ class AddTask extends Component {
   }
 
   onEnter(e) {
-   if (e.keyCode === 13) {
-    this.props.addTask()
-   }
-}
+    if (e.keyCode === 13) {
+      this.props.addTask()
+    }
+  }
+  
   render() {
     return (
       <div className="container">
@@ -29,7 +31,7 @@ class AddTask extends Component {
                  this.props.inputValue === "" ? 
                  this.showAlert:
                  this.props.addTask
-              }>Add</button>
+              }><FaPlusCircle /></button>
           </div>
         </div>
       </div>  
