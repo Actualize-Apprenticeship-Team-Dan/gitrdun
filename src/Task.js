@@ -14,7 +14,7 @@ class Task extends Component {
 		        <div className="form-check form-group float-right pr-5">
 			        <input 
 			        	className="form-check-input"
-			        	onClick={() => this.props.toggleCompleted(this.props.task)}
+			        	onChange={() => this.props.toggleCompleted(this.props.task)}
 			        	type="checkbox"  
 			        	id="exampleCheck1" 
 			        	checked={this.props.task.completed}

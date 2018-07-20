@@ -3,6 +3,7 @@ import AddTask from './AddTask';
 import TaskList from './TaskList';
 import './App.css';
 import FaAngellist from 'react-icons/lib/fa/angellist';
+import db from './firebase';
 
 
 class App extends Component {
@@ -13,6 +14,16 @@ class App extends Component {
       inputValue: '',
       tasks: [],
     };
+  }
+
+  componentDidMount() {
+    let tasks = [];
+    db.collection('tasks').onSnapshot(snapshot => {
+      snapshot.forEach(doc => {
+        tasks.push(doc.data());
+      })
+      this.setState({ tasks: tasks });
+    })
   }
 
   handleChange(e) {
