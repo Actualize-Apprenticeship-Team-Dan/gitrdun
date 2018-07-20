@@ -10,7 +10,11 @@ class Task extends Component {
 	        <div className={`list-group-item ${this.props.task.completed ? 'list-group-item-success': ''}`}> 
             <FaThumbTack size={50} style={{paddingRight:10}} />
             {Moment(this.props.task.date).format('l')} {this.props.task.text}
-		        <button className="btn btn-small btn-danger float-right" onClick={() => this.props.removeTask(this.props.task.text)}><FaTrashO size={30} /></button> 
+		        <button className="btn btn-small btn-danger float-right" 
+				        onClick={() => this.props.removeTask(this.props.task.id)}
+		        >
+				        <FaTrashO size={30} />
+		        </button> 
 		        <div className="form-check form-group float-right pr-5">
 			        <input 
 			        	className="form-check-input"
