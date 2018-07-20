@@ -55,17 +55,13 @@ class App extends Component {
     });
   }
 
-  toggleCompleted(completedTask){
-    var updatedTasks = this.state.tasks.map(task => {
-      if(task.text === completedTask.text) {
-        task.completed = !task.completed
-      }
-      return task
-    })
-    this.setState({
-      tasks: updatedTasks
-    })
-
+  toggleCompleted(task){
+    task.completed = !task.completed
+    db.collection('tasks').doc(task.id).set(task).then(() => {
+      console.log("Document updated successfully");
+    }).catch((error) => {
+      console.error("Error updating document: ", error);
+    });
   }
 
   render() {
