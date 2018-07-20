@@ -10,7 +10,7 @@ class TaskList extends Component {
             this.props.tasks.map((task, index) => 
               <Task 
                 task={task} 
-                key={task.date.getTime() } 
+                key={task.text} 
                 removeTask={this.props.removeTask}
                 toggleCompleted={this.props.toggleCompleted}
               /> 
