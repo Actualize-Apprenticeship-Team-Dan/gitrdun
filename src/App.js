@@ -47,11 +47,12 @@ class App extends Component {
     })
   }
 
-  removeTask(removedTask) {
-    var filteredTasks = this.state.tasks.filter(task => (removedTask !== task.text))
-    this.setState({
-      tasks: filteredTasks
-    })
+  removeTask(taskId) {
+    db.collection('tasks').doc(taskId).delete().then(() => {
+      console.log("Document successfully deleted!");
+    }).catch((error) => {
+      console.error("Error removing document: ", error);
+    });
   }
 
   toggleCompleted(completedTask){
