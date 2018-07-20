@@ -17,9 +17,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let tasks = [];
+
     db.collection('tasks').onSnapshot(snapshot => {
+      let tasks = [];
       snapshot.forEach(doc => {
+        console.log(doc.data())
         tasks.push(doc.data());
       })
       this.setState({ tasks: tasks });
@@ -31,17 +33,18 @@ class App extends Component {
   }
 
   addTask() {
-    var tasks = this.state.tasks.slice();
-    tasks.push({
+    let id = new Date().getTime().toString()
+
+    db.collection('tasks').doc(id).set({
       text: this.state.inputValue,
       date: new Date(),
-      completed: false
-    });
-
-    this.setState({
-      tasks: tasks,
-      inputValue: ''
-    });
+      completed: false, 
+      id: id
+    }).then(() => {
+      this.setState({inputValue: ""})
+    }).catch((error) => {
+      console.log("error adding document", error)
+    })
   }
 
   removeTask(removedTask) {
