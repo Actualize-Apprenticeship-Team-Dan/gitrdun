@@ -3,6 +3,8 @@ import './App.css';
 import FaTrashO from 'react-icons/lib/fa/trash-o';
 import FaThumbTack from 'react-icons/lib/fa/thumb-tack';
 import Moment from 'moment'
+import FaArrowCircleDown from 'react-icons/lib/fa/arrow-circle-down'
+import FaArrowCircleUp from 'react-icons/lib/fa/arrow-circle-up'
 
 class Task extends Component {
     render() {
@@ -21,6 +23,16 @@ class Task extends Component {
                 >
     				      <FaTrashO size={30} />
 		            </button> 
+	            	<button className="btn btn-small btn-success float-right" 
+						onClick={() => this.props.moveTask(this.props.task.id, 1)}
+		        >
+				        <FaArrowCircleDown size={30} />
+			        </button>
+		        <button className="btn btn-small btn-success float-right" 
+						onClick={() => this.props.moveTask(this.props.task.id, -1)}
+		        >
+				        <FaArrowCircleUp size={30} />
+		        </button> 
     		        <div className="form-check form-group float-right pr-5">
     			        <input 
     			        	className="form-check-input"
