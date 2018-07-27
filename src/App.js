@@ -21,7 +21,7 @@ class App extends Component {
     db.collection('tasks').onSnapshot(snapshot => {
       let tasks = [];
       snapshot.forEach(doc => {
-        console.log(doc.data())
+        // console.log(doc.data());
         tasks.push(doc.data());
       })
       this.setState({ tasks: tasks });
@@ -38,7 +38,8 @@ class App extends Component {
     db.collection('tasks').doc(id).set({
       text: this.state.inputValue,
       date: new Date(),
-      completed: false, 
+      completed: false,
+      isHidden: false,
       id: id
     }).then(() => {
       this.setState({inputValue: ""})
@@ -53,6 +54,19 @@ class App extends Component {
     }).catch((error) => {
       console.error("Error removing document: ", error);
     });
+  }
+
+  hideCompleted(tasks){
+    // if ()
+    db.collection('tasks').onSnapshot(snapshot => {
+      let uncompletedTasks = [];
+      snapshot.forEach(doc => {
+        if (doc.data().completed === false) {
+        uncompletedTasks.push(doc.data())};
+      })
+      console.log(uncompletedTasks);
+      this.setState({ tasks: uncompletedTasks });
+    })
   }
 
   toggleCompleted(task){
@@ -78,7 +92,8 @@ class App extends Component {
           handleChange={this.handleChange.bind(this)}
           addTask={this.addTask.bind(this)} 
         />
-        <TaskList 
+        <TaskList
+          hideCompleted={this.hideCompleted.bind(this)} 
           tasks={this.state.tasks}
           removeTask={this.removeTask.bind(this)}
           toggleCompleted={this.toggleCompleted.bind(this)}
