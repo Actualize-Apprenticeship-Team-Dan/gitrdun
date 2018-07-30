@@ -15,6 +15,8 @@ class TaskList extends Component {
                 toggleCompleted={this.props.toggleCompleted}
                 moveTask={this.props.moveTask}
                 direction={task.direction}
+                order={index}
+                length={this.props.tasks.length}
               /> 
         )}
        </div>

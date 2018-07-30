@@ -12,42 +12,50 @@ class Task extends Component {
 	        <div className={`list-group-item ${this.props.task.completed ? 'list-group-item-success': ''}`}> 
             <div className="row">
               <FaThumbTack className="col-md-1" size={50} style={{paddingRight:10}} />
-              <div className="col-md-7">
+              <div className="col-md-5">
                 <small>{Moment(this.props.task.date.toDate()).format('l')} </small>
                 <h5>{this.props.task.text}</h5>
               </div>
-              <div className="col-md-4">
-		            <button 
-                  className="btn btn-small btn-danger float-right" 
-    				      onClick={() => this.props.removeTask(this.props.task.id)}
-                >
-    				      <FaTrashO size={30} />
-		            </button> 
-	            	<button className="btn btn-small btn-success float-right" 
-						onClick={() => this.props.moveTask(this.props.task.id, 1)}
-		        >
-				        <FaArrowCircleDown size={30} />
-			        </button>
-		        <button className="btn btn-small btn-success float-right" 
-						onClick={() => this.props.moveTask(this.props.task.id, -1)}
-		        >
-				        <FaArrowCircleUp size={30} />
-		        </button> 
-    		        <div className="form-check form-group float-right pr-5">
-    			        <input 
-    			        	className="form-check-input"
-    			        	onChange={() => this.props.toggleCompleted(this.props.task)}
-    			        	type="checkbox"  
-    			        	id="exampleCheck1" 
-    			        	checked={this.props.task.completed}
-    		        	/>
-    		        	<label className="form-check-label">
-    					 	   Completed
-    					   </label>
-    				    </div>
-              </div>
-	         </div>
+  	        <div className="col-md-3">
+			        <div className="form-check form-group float-right pr-5">
+				        <input 
+				          className="form-check-input"
+				        	onChange={() => this.props.toggleCompleted(this.props.task)}
+				        	type="checkbox"  
+				        	id="exampleCheck1" 
+				        	checked={this.props.task.completed}
+			        	/>
+			        	<label className="form-check-label">
+						 	   Completed
+						    </label>
+					    </div>
+            </div>
+            <div className="col-md-3">
+	            <button 
+                className="btn btn-small btn-danger float-right" 
+					      onClick={() => this.props.removeTask(this.props.task.id)}
+              >
+  				      <FaTrashO size={30} />
+	            </button> 
+	            {this.props.order < this.props.length - 1 &&
+	            	<button 
+	            	  className="btn btn-small btn-success float-right" 
+								  onClick={() => this.props.moveTask(this.props.task.id, 1)}
+				        >
+					        <FaArrowCircleDown size={30} />
+				        </button>
+					    }
+					    {this.props.order > 0 &&
+				        <button 
+					        className="btn btn-small btn-success float-right" 
+								  onClick={() => this.props.moveTask(this.props.task.id, -1)}
+				        >
+					        <FaArrowCircleUp size={30} />
+				        </button> 
+					    }
+		         </div>
           </div>
+      </div>
         )
     }
 }
