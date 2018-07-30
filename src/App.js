@@ -5,13 +5,13 @@ import './App.css';
 import FaAngellist from 'react-icons/lib/fa/angellist';
 import db from './firebase';
 
-
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       inputValue: '',
+      showCompleted: false,
       tasks: [],
     };
   }
@@ -78,8 +78,16 @@ class App extends Component {
     });
   }
 
+  filterCompleted(){
+    this.setState({
+      showCompleted: !this.state.showCompleted
+    }) 
+    console.log(this.state.showCompleted)
+  }
+
   render() {
     var title = 'Git R Dun';
+    var tasks = this.state.showCompleted ? this.state.tasks.filter(t => !t.completed) : this.state.tasks
 
     return (
       <div className="App">
@@ -95,10 +103,7 @@ class App extends Component {
         <TaskList
           hideCompleted={this.hideCompleted.bind(this)} 
           tasks={this.state.tasks}
-          removeTask={this.removeTask.bind(this)}
-          toggleCompleted={this.toggleCompleted.bind(this)}
-        />
-
+        <button onClick={this.filterCompleted.bind(this)}> Filter </button>
       </div>
 
     );
