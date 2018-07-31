@@ -5,13 +5,13 @@ import './App.css';
 import FaAngellist from 'react-icons/lib/fa/angellist';
 import db from './firebase';
 
-
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       inputValue: '',
+      showCompleted: false,
       tasks: [],
     };
   }
@@ -21,7 +21,7 @@ class App extends Component {
     db.collection('tasks').onSnapshot(snapshot => {
       let tasks = [];
       snapshot.forEach(doc => {
-        console.log(doc.data())
+        // console.log(doc.data());
         tasks.push(doc.data());
       })
       this.setState({ tasks: tasks });
@@ -38,7 +38,7 @@ class App extends Component {
     db.collection('tasks').doc(id).set({
       text: this.state.inputValue,
       date: new Date(),
-      completed: false, 
+      completed: false,
       id: id
     }).then(() => {
       this.setState({inputValue: ""})
@@ -75,8 +75,16 @@ class App extends Component {
     });
   }
 
+  filterCompleted(){
+    this.setState({
+      showCompleted: !this.state.showCompleted
+    }) 
+    console.log(this.state.showCompleted)
+  }
+
   render() {
     var title = 'Git R Dun';
+    var tasks = this.state.showCompleted ? this.state.tasks.filter(t => !t.completed) : this.state.tasks
 
     return (
       <div className="App">
@@ -89,14 +97,17 @@ class App extends Component {
           handleChange={this.handleChange.bind(this)}
           addTask={this.addTask.bind(this)} 
         />
-        <TaskList 
-          tasks={this.state.tasks}
+        <button 
+          className="btn-primary btn-lg mt-5"
+          onClick={this.filterCompleted.bind(this)}>
+          Show Completed Tasks: {this.state.showCompleted ? "Off" : "On"}
+        </button> 
+        <TaskList
+          tasks={tasks}
           removeTask={this.removeTask.bind(this)}
           toggleCompleted={this.toggleCompleted.bind(this)}
           moveTask={this.moveTask.bind(this)}
         />
-        
-
       </div>
 
     );
