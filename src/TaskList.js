@@ -13,6 +13,10 @@ class TaskList extends Component {
                 key={task.id} 
                 removeTask={this.props.removeTask}
                 toggleCompleted={this.props.toggleCompleted}
+                moveTask={this.props.moveTask}
+                direction={task.direction}
+                order={index}
+                length={this.props.tasks.length}
               /> 
         )}
        </div>

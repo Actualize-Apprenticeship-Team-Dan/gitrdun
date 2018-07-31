@@ -55,6 +55,17 @@ class App extends Component {
     });
   }
 
+  moveTask(taskId, direction) {
+    let index1 = this.state.tasks.map(t =>  t.id ).indexOf(taskId)
+    let tasks = this.state.tasks.slice()
+    let task = tasks[index1]
+    tasks.splice(index1, 1)
+    tasks.splice(index1 + direction, 0,  task)
+    this.setState({
+      tasks: tasks
+    })
+  }
+
   toggleCompleted(task){
     task.completed = !task.completed
     db.collection('tasks').doc(task.id).set(task).then(() => {
@@ -94,7 +105,9 @@ class App extends Component {
         <TaskList
           tasks={tasks}
           removeTask={this.removeTask.bind(this)}
-          toggleCompleted={this.toggleCompleted.bind(this)} />
+          toggleCompleted={this.toggleCompleted.bind(this)}
+          moveTask={this.moveTask.bind(this)}
+        />
       </div>
 
     );
