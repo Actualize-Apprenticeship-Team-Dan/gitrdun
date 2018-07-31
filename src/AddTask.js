@@ -26,12 +26,13 @@ class AddTask extends Component {
           </input>
           <div className="input-group-append">
             <button 
-              className="btn btn-primary" 
+              className="btn-primary btn" 
               onClick={
                  this.props.inputValue === "" ? 
                  this.showAlert:
                  this.props.addTask
-              }><FaPlusCircle /></button>
+              }><FaPlusCircle />
+            </button>
           </div>
         </div>
       </div>  

@@ -39,7 +39,6 @@ class App extends Component {
       text: this.state.inputValue,
       date: new Date(),
       completed: false,
-      isHidden: false,
       id: id
     }).then(() => {
       this.setState({inputValue: ""})
@@ -54,19 +53,6 @@ class App extends Component {
     }).catch((error) => {
       console.error("Error removing document: ", error);
     });
-  }
-
-  hideCompleted(tasks){
-    // if ()
-    db.collection('tasks').onSnapshot(snapshot => {
-      let uncompletedTasks = [];
-      snapshot.forEach(doc => {
-        if (doc.data().completed === false) {
-        uncompletedTasks.push(doc.data())};
-      })
-      console.log(uncompletedTasks);
-      this.setState({ tasks: uncompletedTasks });
-    })
   }
 
   toggleCompleted(task){
@@ -100,10 +86,15 @@ class App extends Component {
           handleChange={this.handleChange.bind(this)}
           addTask={this.addTask.bind(this)} 
         />
+        <button 
+          className="btn-primary btn-lg mt-5"
+          onClick={this.filterCompleted.bind(this)}>
+          Show Completed Tasks: {this.state.showCompleted ? "Off" : "On"}
+        </button> 
         <TaskList
-          hideCompleted={this.hideCompleted.bind(this)} 
-          tasks={this.state.tasks}
-        <button onClick={this.filterCompleted.bind(this)}> Filter </button>
+          tasks={tasks}
+          removeTask={this.removeTask.bind(this)}
+          toggleCompleted={this.toggleCompleted.bind(this)} />
       </div>
 
     );
