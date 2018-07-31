@@ -34,7 +34,7 @@ class Task extends Component {
     					   </label>
     				    </div>
               </div>
-	         </div>
+	          </div>
           </div>
         )
     }
