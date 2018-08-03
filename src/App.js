@@ -56,43 +56,23 @@ class App extends Component {
   }
 
   moveTask(taskId, direction) {
-    let index = this.state.tasks.map(t =>  t.id ).indexOf(taskId)
+    let index = this.state.tasks.map(t => t.id ).indexOf(taskId)
     let tasks = this.state.tasks.slice()
     let movedTask = tasks[index]
     let bumpedTask = tasks[index + direction]
-    db.collection('tasks').doc(movedTask.id).set(bumpedTask).then(() => {
-      console.log("Document updated successfully");
-    }).catch((error) => {
-      console.error("Error updating document: ", error);
-    });
-    db.collection('tasks').doc(bumpedTask.id).set(movedTask).then(() => {
-      console.log("Document updated successfully");
-    }).catch((error) => {
-      console.error("Error updating document: ", error);
-    });
-    // tasks.splice(index, 1)
-    // tasks.splice(index + direction, 0,  movedTask)
-    // this.setState({
-    //   tasks: tasks
-    // })
-    // this.updateFirebaseOnMove();
-  }
-
-  updateFirebaseOnMove(){
-    var FbTasks = db.collection('tasks');
-    var tasks = this.state.tasks;
-    console.log(FbTasks);
-    if (FbTasks !== tasks) {
-      db.collection('tasks').set(tasks).then(() => {
-        console.log("Firebase updated on move!");
-      }).catch((error) => {
-        console.log ("Firebase not updated on move!", error)
-      });
-    }
+    let tempId = movedTask.id
+    movedTask.id = bumpedTask.id
+    bumpedTask.id = tempId
+    this.updateTask(movedTask);
+    this.updateTask(bumpedTask);
   }
 
   toggleCompleted(task){
     task.completed = !task.completed
+    this.updateTask(task)
+  }
+
+  updateTask(task) {
     db.collection('tasks').doc(task.id).set(task).then(() => {
       console.log("Document updated successfully");
     }).catch((error) => {
@@ -132,7 +112,6 @@ class App extends Component {
           removeTask={this.removeTask.bind(this)}
           toggleCompleted={this.toggleCompleted.bind(this)}
           moveTask={this.moveTask.bind(this)}
-          updateFirebaseOnMove={this.updateFirebaseOnMove.bind(this)}
         />
       </div>
 
