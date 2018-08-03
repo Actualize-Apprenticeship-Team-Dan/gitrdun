@@ -17,7 +17,6 @@ class TaskList extends Component {
                 direction={task.direction}
                 order={index}
                 length={this.props.tasks.length}
-                updateFirebaseOnMove={this.props.updateFirebaseOnMove}
               /> 
         )}
        </div>

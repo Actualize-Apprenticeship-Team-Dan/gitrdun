@@ -114,7 +114,6 @@ class App extends Component {
           moveTask={this.moveTask.bind(this)}
         />
       </div>
-
     );
   }
 }
