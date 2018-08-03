@@ -79,7 +79,7 @@ class App extends Component {
   filterCompleted(){
     this.setState({
       showCompleted: !this.state.showCompleted
-    }) 
+    })
     console.log(this.state.showCompleted)
   }
 
@@ -89,33 +89,41 @@ class App extends Component {
 
   render() {
     var title = 'Git R Dun';
-    var tasks = this.state.showCompleted ? this.state.tasks.filter(t => !t.completed) : this.state.tasks
-    var filterTasks = this.state.filterValue ? 
-    tasks.filter(t => 
-      t.text.toLowerCase().includes(this.state.filterValue.toLowerCase())
-      ) : tasks
+    let completedFilter = this.state.showCompleted ?
+      t => !t.completed :
+      t => t
+    let textFilter = this.state.filterValue ?
+      t => t.text.toLowerCase().includes(this.state.filterValue.toLowerCase()) :
+      t => t
+    let filteredTasks = this.state.tasks
+      .filter(completedFilter)
+      .filter(textFilter)
 
     return (
       <div className="App">
-        <h1 className="title"> 
+        <h1 className="title">
         <FaAngellist />
-        {title} 
+        {title}
         </h1>
-        <AddTask 
-          inputValue={this.state.inputValue} 
+        <AddTask
+          inputValue={this.state.inputValue}
           handleChange={this.handleChange.bind(this)}
-          addTask={this.addTask.bind(this)} 
+          addTask={this.addTask.bind(this)}
         />
         <div className="container">
-        <input className="form-control col-md-3" placeHolder="Search" onChange={this.filterTasks.bind(this)}/>
+          <input
+            className="form-control col-md-3 mx-auto mt-2"
+            placeholder="Search"
+            onChange={this.filterTasks.bind(this)}
+          />
         </div>
-        <button 
-          className="btn-primary btn-lg mt-5"
+        <button
+          className="btn-primary btn mt-2"
           onClick={this.filterCompleted.bind(this)}>
           Show Completed Tasks: {this.state.showCompleted ? "Off" : "On"}
-        </button> 
+        </button>
         <TaskList
-          tasks={filterTasks}
+          tasks={filteredTasks}
           removeTask={this.removeTask.bind(this)}
           toggleCompleted={this.toggleCompleted.bind(this)}
           moveTask={this.moveTask.bind(this)}
