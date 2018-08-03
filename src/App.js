@@ -11,6 +11,7 @@ class App extends Component {
 
     this.state = {
       inputValue: '',
+      filterValue: '',
       showCompleted: false,
       tasks: [],
     };
@@ -82,9 +83,17 @@ class App extends Component {
     console.log(this.state.showCompleted)
   }
 
+  filterTasks(e) {
+    this.setState({filterValue: e.target.value});
+  }
+
   render() {
     var title = 'Git R Dun';
     var tasks = this.state.showCompleted ? this.state.tasks.filter(t => !t.completed) : this.state.tasks
+    var filterTasks = this.state.filterValue ? 
+    tasks.filter(t => 
+      t.text.toLowerCase().includes(this.state.filterValue.toLowerCase())
+      ) : tasks
 
     return (
       <div className="App">
@@ -97,16 +106,20 @@ class App extends Component {
           handleChange={this.handleChange.bind(this)}
           addTask={this.addTask.bind(this)} 
         />
+        <div className="container">
+        <input className="form-control col-md-3" placeHolder="Search" onChange={this.filterTasks.bind(this)}/>
+        </div>
         <button 
           className="btn-primary btn-lg mt-5"
           onClick={this.filterCompleted.bind(this)}>
           Show Completed Tasks: {this.state.showCompleted ? "Off" : "On"}
         </button> 
         <TaskList
-          tasks={tasks}
+          tasks={filterTasks}
           removeTask={this.removeTask.bind(this)}
           toggleCompleted={this.toggleCompleted.bind(this)}
           moveTask={this.moveTask.bind(this)}
+
         />
       </div>
 
