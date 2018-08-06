@@ -9,7 +9,7 @@ class TaskList extends Component {
           {
             this.props.tasks.map((task, index) => 
               <Task 
-                task={task} 
+                task={task}
                 key={task.id} 
                 removeTask={this.props.removeTask}
                 toggleCompleted={this.props.toggleCompleted}

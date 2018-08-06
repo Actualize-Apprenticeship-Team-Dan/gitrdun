@@ -56,18 +56,23 @@ class App extends Component {
   }
 
   moveTask(taskId, direction) {
-    let index1 = this.state.tasks.map(t =>  t.id ).indexOf(taskId)
+    let index = this.state.tasks.map(t => t.id ).indexOf(taskId)
     let tasks = this.state.tasks.slice()
-    let task = tasks[index1]
-    tasks.splice(index1, 1)
-    tasks.splice(index1 + direction, 0,  task)
-    this.setState({
-      tasks: tasks
-    })
+    let movedTask = tasks[index]
+    let bumpedTask = tasks[index + direction]
+    let tempId = movedTask.id
+    movedTask.id = bumpedTask.id
+    bumpedTask.id = tempId
+    this.updateTask(movedTask);
+    this.updateTask(bumpedTask);
   }
 
   toggleCompleted(task){
     task.completed = !task.completed
+    this.updateTask(task)
+  }
+
+  updateTask(task) {
     db.collection('tasks').doc(task.id).set(task).then(() => {
       console.log("Document updated successfully");
     }).catch((error) => {
@@ -109,7 +114,6 @@ class App extends Component {
           moveTask={this.moveTask.bind(this)}
         />
       </div>
-
     );
   }
 }
