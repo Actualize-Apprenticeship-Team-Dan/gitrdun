@@ -69,6 +69,26 @@ class App extends Component {
     this.updateTask(bumpedTask);
   }
 
+  dragTask(oldIndex, newIndex) {
+    let tasks = this.state.tasks.slice()
+    let low = oldIndex < newIndex ? oldIndex : newIndex
+    let high = oldIndex > newIndex ? oldIndex : newIndex
+    for(let i = low; i < high; i++) {
+      let movedTask = tasks[i]
+      let bumpedTask = tasks[i + 1]
+      let tempId = movedTask.id
+      movedTask.id = bumpedTask.id
+      bumpedTask.id = tempId 
+      this.updateTask(movedTask);
+      this.updateTask(bumpedTask);
+      if(oldIndex < newIndex) {
+        tasks[i + 1] = tasks[i]
+      } else {
+        tasks[i - 1] = tasks[i]
+      }
+    } 
+  }
+
   toggleCompleted(task){
     task.completed = !task.completed
     this.updateTask(task)
@@ -94,6 +114,7 @@ class App extends Component {
   }
 
   onSortEnd = ({oldIndex, newIndex}) => {
+    this.dragTask( oldIndex, newIndex)
     this.setState({
       tasks: arrayMove(this.state.tasks, oldIndex, newIndex),
     });
