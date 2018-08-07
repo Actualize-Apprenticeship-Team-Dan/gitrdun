@@ -4,6 +4,7 @@ import TaskList from './TaskList';
 import './App.css';
 import FaAngellist from 'react-icons/lib/fa/angellist';
 import db from './firebase';
+import {arrayMove} from 'react-sortable-hoc'
 
 class App extends Component {
   constructor(props) {
@@ -92,6 +93,12 @@ class App extends Component {
     this.setState({filterValue: e.target.value});
   }
 
+  onSortEnd = ({oldIndex, newIndex}) => {
+    this.setState({
+      tasks: arrayMove(this.state.tasks, oldIndex, newIndex),
+    });
+  };
+
   render() {
     var title = 'Git R Dun';
     let completedFilter = this.state.showCompleted ?
@@ -132,6 +139,8 @@ class App extends Component {
           removeTask={this.removeTask.bind(this)}
           toggleCompleted={this.toggleCompleted.bind(this)}
           moveTask={this.moveTask.bind(this)}
+          onSortEnd={this.onSortEnd}
+          useDragHandle={true}
 
         />
       </div>
