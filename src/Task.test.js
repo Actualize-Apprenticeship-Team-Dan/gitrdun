@@ -1,5 +1,5 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import {mount} from 'enzyme';
 import Task from './Task';
 import Firebase from 'firebase'
 
@@ -9,6 +9,6 @@ describe("task", () => {
             completed: false,
             date: new Firebase.firestore.Timestamp.fromDate(new Date())
         }
-        shallow( < Task task={task} />)
+        expect( < Task task={task} index={0} />).toBeTruthy()
     })
 })
