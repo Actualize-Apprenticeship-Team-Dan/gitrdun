@@ -1,4 +1,4 @@
-import React, {Component} from 'react' 
+import React from 'react' 
 import './App.css';
 import FaTrashO from 'react-icons/lib/fa/trash-o';
 import FaThumbTack from 'react-icons/lib/fa/thumb-tack';
