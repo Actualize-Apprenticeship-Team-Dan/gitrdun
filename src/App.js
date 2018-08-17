@@ -4,6 +4,7 @@ import TaskList from './TaskList';
 import './App.css';
 import FaAngellist from 'react-icons/lib/fa/angellist';
 import db from './firebase';
+import {arrayMove} from 'react-sortable-hoc'
 
 class App extends Component {
   constructor(props) {
@@ -68,6 +69,26 @@ class App extends Component {
     this.updateTask(bumpedTask);
   }
 
+  dragTask(oldIndex, newIndex) {
+    let tasks = this.state.tasks.slice()
+    let low = oldIndex < newIndex ? oldIndex : newIndex
+    let high = oldIndex > newIndex ? oldIndex : newIndex
+    for(let i = low; i < high; i++) {
+      let movedTask = tasks[i]
+      let bumpedTask = tasks[i + 1]
+      let tempId = movedTask.id
+      movedTask.id = bumpedTask.id
+      bumpedTask.id = tempId 
+      this.updateTask(movedTask);
+      this.updateTask(bumpedTask);
+      if(oldIndex < newIndex) {
+        tasks[i + 1] = tasks[i]
+      } else {
+        tasks[i - 1] = tasks[i]
+      }
+    } 
+  }
+
   toggleCompleted(task){
     task.completed = !task.completed
     this.updateTask(task)
@@ -91,6 +112,13 @@ class App extends Component {
   filterTasks(e) {
     this.setState({filterValue: e.target.value});
   }
+
+  onSortEnd = ({oldIndex, newIndex}) => {
+    this.dragTask( oldIndex, newIndex)
+    this.setState({
+      tasks: arrayMove(this.state.tasks, oldIndex, newIndex),
+    });
+  };
 
   render() {
     var title = 'Git R Dun';
@@ -132,6 +160,8 @@ class App extends Component {
           removeTask={this.removeTask.bind(this)}
           toggleCompleted={this.toggleCompleted.bind(this)}
           moveTask={this.moveTask.bind(this)}
+          onSortEnd={this.onSortEnd}
+          useDragHandle={true}
 
         />
       </div>
