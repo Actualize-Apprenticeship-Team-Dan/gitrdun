@@ -31,6 +31,26 @@
   font-size: large;
 }
 
+.custom-nav {
+  background-color: #f2f2f2;
+  display: flex;
+  border-bottom: #c2c2c2 1px solid;
+}
+
+.custom-nav a {
+  padding: .4em;
+  width: 33%;
+  text-align: center;
+}
+.custom-nav a:hover {
+  background-color: #00cc66;
+  color: #fff;
+  transition-property: background-color, color;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in;
+  transition-delay: 0s;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
