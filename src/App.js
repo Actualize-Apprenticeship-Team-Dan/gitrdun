@@ -3,7 +3,7 @@ import AddTask from './AddTask';
 import TaskList from './TaskList';
 import './App.css';
 import FaAngellist from 'react-icons/lib/fa/angellist';
-import db from './firebase';
+import firebase from './firebase';
 import {arrayMove} from 'react-sortable-hoc'
 
 class App extends Component {
@@ -20,7 +20,7 @@ class App extends Component {
 
   componentDidMount() {
 
-    db.collection('tasks').onSnapshot(snapshot => {
+    firebase.firestore().collection('tasks').onSnapshot(snapshot => {
       let tasks = [];
       snapshot.forEach(doc => {
         // console.log(doc.data());
@@ -37,7 +37,7 @@ class App extends Component {
   addTask() {
     let id = new Date().getTime().toString()
 
-    db.collection('tasks').doc(id).set({
+    firebase.firestore().collection('tasks').doc(id).set({
       text: this.state.inputValue,
       date: new Date(),
       completed: false,
@@ -50,7 +50,7 @@ class App extends Component {
   }
 
   removeTask(taskId) {
-    db.collection('tasks').doc(taskId).delete().then(() => {
+    firebase.firestore().collection('tasks').doc(taskId).delete().then(() => {
       console.log("Document successfully deleted!");
     }).catch((error) => {
       console.error("Error removing document: ", error);
@@ -95,7 +95,7 @@ class App extends Component {
   }
 
   updateTask(task) {
-    db.collection('tasks').doc(task.id).set(task).then(() => {
+    firebase.firestore().collection('tasks').doc(task.id).set(task).then(() => {
       console.log("Document updated successfully");
     }).catch((error) => {
       console.error("Error updating document: ", error);
@@ -168,5 +168,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;
