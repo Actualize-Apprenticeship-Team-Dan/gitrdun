@@ -8,11 +8,13 @@ import db from './firebase';
 import {arrayMove} from 'react-sortable-hoc';
 import ToDo from './ToDo';
 import { Router, Link } from "@reach/router";
+
 class SignUp extends Component {
   render(){
     return <h1> Sign Up </h1>
   }
 }
+
 class App extends Component {
   render() {
     return (
