@@ -8,9 +8,9 @@ class SignUp extends Component {
       error:'',
     }
   }
-  componentDidMount() {
-    console.log(firebase.auth().currentUser)
-  }
+  // componentDidMount() {
+  //   console.log(firebase.auth().currentUser)
+  // }
 
   handleSubmit (e) {
     e.preventDefault();
@@ -49,3 +49,5 @@ class SignUp extends Component {
    )
   }
 }
+
+export default SignUp

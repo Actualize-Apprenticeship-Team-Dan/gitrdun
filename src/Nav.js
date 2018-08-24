@@ -3,7 +3,7 @@ import { Router, Link } from "@reach/router";
 
 const Nav = () => (
     <div>
-    <nav className="custom-nav">
+      <nav className="custom-nav">
         <Link to="signup" className="nav-item">Sign Up</Link>
         <Link to="/">Home</Link>
         <Link to="Sign In">Log In</Link>
