@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import firebase from './firebase';
 import AuthForm from './AuthForm';
+import {Redirect} from "@reach/router";
 
 class SignUp extends Component {
   constructor(props){
@@ -22,6 +23,9 @@ class SignUp extends Component {
   }
   
   render() {
+    if (this.props.currentUser) {
+      return <Redirect to="/" noThrow />
+    }
     return <AuthForm title='Sign Up' handleSubmit={this.handleSubmit} error={this.state.error} />
   }
 }
