@@ -6,7 +6,7 @@ const Nav = () => (
       <nav className="custom-nav">
         <Link to="signup" className="nav-item">Sign Up</Link>
         <Link to="/">Home</Link>
-        <Link to="Sign In">Log In</Link>
+        <Link to="signin">Log In</Link>
       </nav>
     </div>
   )

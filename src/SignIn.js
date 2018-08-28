@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import firebase from './firebase';
 import AuthForm from './AuthForm';
 
-class SignUp extends Component {
+class SignIn extends Component {
   constructor(props){
     super(props)
     this.state={
@@ -14,16 +14,16 @@ class SignUp extends Component {
     e.preventDefault();
     let email = e.target.email.value
     let password = e.target.password.value
-    firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
-      console.log('you have signed up')
+    firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
+      console.log('you are signed in');
     }).catch((error) => {
       this.setState({error: error.message});
     });
   }
-  
+
   render() {
-    return <AuthForm title='Sign Up' handleSubmit={this.handleSubmit} error={this.state.error} />
+    return <AuthForm title='Sign In' handleSubmit={this.handleSubmit} error={this.state.error} />
   }
 }
 
-export default SignUp
+export default SignIn
