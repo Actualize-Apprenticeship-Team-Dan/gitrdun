@@ -9,6 +9,7 @@ import {arrayMove} from 'react-sortable-hoc';
 import ToDo from './ToDo';
 import { Router, Link } from "@reach/router";
 import SignUp from './SignUp'
+import SignIn from './SignIn'
 
 // class SignUp extends Component {
 //   render(){
@@ -24,6 +25,7 @@ class App extends Component {
         <Router>
           <ToDo path="/" />
           <SignUp path="signup" />
+          <SignIn path="signin" />
         </Router>
       </div>
     )
