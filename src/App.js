@@ -1,28 +1,15 @@
 import React, { Component } from 'react';
-import AddTask from './AddTask';
 import Nav from './Nav'
-import TaskList from './TaskList';
 import './App.css';
-import FaAngellist from 'react-icons/lib/fa/angellist';
-import db from './firebase';
-import {arrayMove} from 'react-sortable-hoc';
 import ToDo from './ToDo';
 import { Router, Redirect } from "@reach/router";
 import SignUp from './SignUp'
 import firebase from './firebase';
-import SignIn from './SignIn'
-
-// const PrivateRoute = ({ component: Component, ...rest }) => (
-//   <Route {...rest} render={(props) => (
-//     fakeAuth.isAuthenticated === true
-//       ? <Component {...props} />
-//       : <Redirect to='/login' />
-//   )} />
-// )
+import SignIn from './SignIn';
 
 class PrivateRoute extends Component {
   render () {
-    return this.props.currentUser ? <this.props.component path="/" /> : <Redirect to="signup" noThrow />
+    return this.props.currentUser ? <this.props.component path="/" /> : <Redirect to="signin" noThrow />
     
   }
 }
@@ -46,14 +33,19 @@ class App extends Component {
     });
   }
 
+  signOut () {
+    firebase.auth().signOut()
+    console.log("signout")
+  }
+
   render() {
     return (
       <div>
-        <Nav/>
+        <Nav currentUser={this.state.user} signOut={ this.signOut}/>
         <Router>
           <PrivateRoute path="/" currentUser={this.state.user} component={ToDo} />
-          <SignUp path="signup" />
-          <SignIn path="signin" />
+          <SignUp path="signup" currentUser={this.state.user}/>
+          <SignIn path="signin" currentUser={this.state.user}/>
         </Router>
       </div>
     )
