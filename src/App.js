@@ -10,6 +10,7 @@ import ToDo from './ToDo';
 import { Router, Redirect } from "@reach/router";
 import SignUp from './SignUp'
 import firebase from './firebase';
+import SignIn from './SignIn'
 
 // const PrivateRoute = ({ component: Component, ...rest }) => (
 //   <Route {...rest} render={(props) => (
@@ -52,6 +53,7 @@ class App extends Component {
         <Router>
           <PrivateRoute path="/" currentUser={this.state.user} component={ToDo} />
           <SignUp path="signup" />
+          <SignIn path="signin" />
         </Router>
       </div>
     )
