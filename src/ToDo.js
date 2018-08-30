@@ -41,7 +41,8 @@ class ToDo extends Component {
       text: this.state.inputValue,
       date: new Date(),
       completed: false,
-      id: id
+      id: id,
+      user: this.props.currentUser.email
     }).then(() => {
       this.setState({ inputValue: "" })
     }).catch((error) => {
