@@ -9,8 +9,7 @@ import SignIn from './SignIn';
 
 class PrivateRoute extends Component {
   render () {
-    return this.props.currentUser ? <this.props.component path="/" currentUser = {this.props.currentUser} /> : <Redirect to="signin" noThrow />
-    
+    return this.props.currentUser ? <this.props.component path="/" currentUser={this.props.currentUser} /> : <Redirect to="signin" noThrow />
   }
 }
 
