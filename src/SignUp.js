@@ -11,7 +11,7 @@ class SignUp extends Component {
     }
   }
 
-  handleSubmit (e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     let email = e.target.email.value
     let password = e.target.password.value

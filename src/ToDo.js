@@ -6,6 +6,7 @@ import FaAngellist from 'react-icons/lib/fa/angellist';
 import firebase from './firebase';
 import { arrayMove } from 'react-sortable-hoc'
 
+
 class ToDo extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +15,7 @@ class ToDo extends Component {
       inputValue: '',
       filterValue: '',
       showCompleted: false,
+      showAllTasks: false,
       tasks: [],
     };
   }
@@ -41,7 +43,8 @@ class ToDo extends Component {
       text: this.state.inputValue,
       date: new Date(),
       completed: false,
-      id: id
+      id: id,
+      user: this.props.currentUser.email
     }).then(() => {
       this.setState({ inputValue: "" })
     }).catch((error) => {
@@ -120,17 +123,30 @@ class ToDo extends Component {
     });
   };
 
+  filterUserTasks = () => {
+    this.setState({
+      showAllTasks: !this.state.showAllTasks
+    })
+    console.log(this.state.showAllTasks)
+  }
+
   render() {
     var title = 'Git R Dun';
     let completedFilter = this.state.showCompleted ?
       t => !t.completed :
       t => t
     let textFilter = this.state.filterValue ?
-      t => t.text.toLowerCase().includes(this.state.filterValue.toLowerCase()) :
+      t => t.text.toLowerCase().includes(this.state.filterValue.toLowerCase()) ||
+        t.user.toLowerCase().includes(this.state.filterValue.toLowerCase()) :
       t => t
+    let userFilter = this.state.showAllTasks ?
+      t => t :
+      t => t.user === this.props.currentUser.email
+      
     let filteredTasks = this.state.tasks
       .filter(completedFilter)
       .filter(textFilter)
+      .filter(userFilter)
 
     return (
       <div className="App">
@@ -154,6 +170,11 @@ class ToDo extends Component {
           className="btn-primary btn mt-2"
           onClick={this.filterCompleted.bind(this)}>
           Show Completed Tasks: {this.state.showCompleted ? "Off" : "On"}
+        </button>
+        <button
+          className="btn-primary btn mt-2"
+          onClick={this.filterUserTasks}>
+          Show All Tasks: {this.state.showAllTasks ? "Off" : "On"}
         </button>
         <TaskList
           tasks={filteredTasks}

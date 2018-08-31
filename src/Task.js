@@ -17,7 +17,7 @@ const Task = SortableElement(props => {
 		<div className="row">
 			<DragHandle />
 			<div className="col col-xs-8">
-				<small>{Moment(props.task.date.toDate()).format('l')} </small>
+				<small> {props.task.user}, {Moment(props.task.date.toDate()).format('l')} </small>
 				<h5>{props.task.text}</h5>
 			</div>
 			<div className="col col-xs-3">
