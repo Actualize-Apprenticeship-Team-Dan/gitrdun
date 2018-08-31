@@ -10,12 +10,14 @@ class AuthForm extends Component {
       <div className={"alert alert-danger error " + showError}>{this.props.error}</div>
       <form onSubmit={(e) => this.props.handleSubmit(e)}>
         <div className="form-group">
-          <label>Enter your email:</label>
-          <input className="form-control" name="email"/>
+          <label>Email:</label>
+          < input className = "form-control gray-out"
+          name = "email"
+          value = "abc@123.com" />
         </div>
         <div className="form-group">
-          <label>Enter your password:</label>
-          <input className="form-control" name="password" type="password"/>
+          <label>Password:</label>
+          <input className="form-control" name="password" type="password" />
         </div>
         <button className="btn btn-primary mb-3 w-100" type="submit">Submit</button>
       </form>

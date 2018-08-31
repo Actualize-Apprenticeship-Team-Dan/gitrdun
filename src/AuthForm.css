@@ -5,3 +5,7 @@ h3 {
   color: #fff !important;
   border-radius: 0.25rem;
 }
+
+.gray-out {
+  opacity: .6;
+}
