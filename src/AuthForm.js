@@ -13,7 +13,7 @@ class AuthForm extends Component {
           <label>Email:</label>
           < input className = "form-control gray-out"
           name = "email"
-          value = "abc@123.com" />
+          placeholder = "abc@123.com" />
         </div>
         <div className="form-group">
           <label>Password:</label>
