@@ -174,7 +174,7 @@ class ToDo extends Component {
         <button
           className="btn-primary btn mt-2"
           onClick={this.filterUserTasks}>
-          Show All Tasks: {this.state.showAllTasks ? "Off" : "On"}
+          Show All Tasks: {this.state.showAllTasks ? "On" : "Off"}
         </button>
         <TaskList
           tasks={filteredTasks}
