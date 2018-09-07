@@ -1,5 +1,7 @@
 import React, {Fragment} from 'react';
 import { Link } from "@reach/router";
+import FaAngellist from 'react-icons/lib/fa/angellist';
+
 
 
 const Nav = (props) => (
@@ -11,6 +13,10 @@ const Nav = (props) => (
           <Link to="signin">Sign In</Link>
         </Fragment>
       }
+        <h1 className="title">
+          <FaAngellist />
+          {'Git R Dun'}
+        </h1>
       </nav>
     </div>
   )
