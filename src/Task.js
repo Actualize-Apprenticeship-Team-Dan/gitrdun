@@ -19,6 +19,7 @@ const Task = SortableElement(props => {
 			<div className="col col-xs-8">
 				<small> {props.task.user}, {Moment(props.task.date.toDate()).format('l')} </small>
 				<h5>{props.task.text}</h5>
+				<h6>Due Date: {Moment(props.task.dueDate.toDate()).format('l')}</h6>
 			</div>
 			<div className="col col-xs-3">
 				<div className="btn-group float-right">

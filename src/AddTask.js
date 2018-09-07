@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import FaPlusCircle from 'react-icons/lib/fa/plus-circle';
+import DatePicker from 'react-date-picker';
+
 
 class AddTask extends Component {
 
@@ -12,6 +14,7 @@ class AddTask extends Component {
       this.props.addTask()
     }
   }
+
   
   render() {
     return (
@@ -24,6 +27,11 @@ class AddTask extends Component {
             onKeyUp={(e) => this.onEnter(e)}
             placeholder="Enter a Task">
           </input>
+          <DatePicker
+              onChange={this.props.dateChange}
+              value={this.props.dueDate}
+            />
+
           <div className="input-group-append">
             <button 
               className="btn-primary btn" 
