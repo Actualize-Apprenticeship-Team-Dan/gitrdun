@@ -154,7 +154,7 @@ class ToDo extends Component {
     return (
       <div className="App">
         <div className="container">
-          <div className="no-gutters">
+          <div>
               <input
                 className="form-control col-md-3 mt-5 mb-2"
                 placeholder="Search"
