@@ -3,6 +3,10 @@ import AddTask from './AddTask';
 import TaskList from './TaskList';
 import './App.css';
 import FaAngellist from 'react-icons/lib/fa/angellist';
+import FaCheckCircleO from 'react-icons/lib/fa/check-circle-o'
+import FaCheckCircle from 'react-icons/lib/fa/check-circle'
+import FaUser from 'react-icons/lib/fa/user'
+import FaGroup from 'react-icons/lib/fa/group'
 import firebase from './firebase';
 import { arrayMove } from 'react-sortable-hoc'
 
@@ -15,7 +19,7 @@ class ToDo extends Component {
       inputValue: '',
       filterValue: '',
       showCompleted: false,
-      showAllTasks: false,
+      showAllTasks: true,
       tasks: [],
     };
   }
@@ -131,7 +135,6 @@ class ToDo extends Component {
   }
 
   render() {
-    var title = 'Git R Dun';
     let completedFilter = this.state.showCompleted ?
       t => !t.completed :
       t => t
@@ -150,32 +153,21 @@ class ToDo extends Component {
 
     return (
       <div className="App">
-        <h1 className="title">
-          <FaAngellist />
-          {title}
-        </h1>
-        <AddTask
-          inputValue={this.state.inputValue}
-          handleChange={this.handleChange.bind(this)}
-          addTask={this.addTask.bind(this)}
-        />
         <div className="container">
-          <input
-            className="form-control col-md-3 mx-auto mt-2"
-            placeholder="Search"
-            onChange={this.filterTasks.bind(this)}
-          />
+          <div>
+              <input
+                className="form-control col-md-3 mt-5 mb-2" className={{display: "inline-block"}}
+                placeholder="Search"
+                onChange={this.filterTasks.bind(this)}
+              />
+            <span className="col-md-1"onClick = {this.filterCompleted.bind(this)}>
+              {this.state.showCompleted ? <FaCheckCircleO size={30}/> : <FaCheckCircle size={30}/>}
+            </span>
+            <span onClick = {this.filterUserTasks}>
+              {this.state.showAllTasks ? <FaGroup size={30}/> : <FaUser size={30}/>}
+            </span>
+          </div>
         </div>
-        <button
-          className="btn-primary btn mt-2"
-          onClick={this.filterCompleted.bind(this)}>
-          Show Completed Tasks: {this.state.showCompleted ? "Off" : "On"}
-        </button>
-        <button
-          className="btn-primary btn mt-2"
-          onClick={this.filterUserTasks}>
-          Show All Tasks: {this.state.showAllTasks ? "Off" : "On"}
-        </button>
         <TaskList
           tasks={filteredTasks}
           removeTask={this.removeTask.bind(this)}
