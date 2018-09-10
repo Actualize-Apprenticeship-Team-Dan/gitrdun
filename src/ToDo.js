@@ -9,7 +9,7 @@ import FaUser from 'react-icons/lib/fa/user'
 import FaGroup from 'react-icons/lib/fa/group'
 import firebase from './firebase';
 import { arrayMove } from 'react-sortable-hoc'
-
+import Modal from 'react-responsive-modal';
 
 class ToDo extends Component {
   constructor(props) {
@@ -17,10 +17,12 @@ class ToDo extends Component {
 
     this.state = {
       inputValue: '',
+      dueDate: new Date(),
       filterValue: '',
       showCompleted: false,
       showAllTasks: true,
       tasks: [],
+      open: false, 
     };
   }
 
@@ -36,6 +38,14 @@ class ToDo extends Component {
     })
   }
 
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
+ 
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
+
   handleChange(e) {
     this.setState({ inputValue: e.target.value });
   }
@@ -48,9 +58,14 @@ class ToDo extends Component {
       date: new Date(),
       completed: false,
       id: id,
-      user: this.props.currentUser.email
+      user: this.props.currentUser.email,
+      dueDate: this.state.dueDate
     }).then(() => {
-      this.setState({ inputValue: "" })
+      this.setState({ 
+        inputValue: "",
+        dueDate: new Date(),
+        open: false
+      })
     }).catch((error) => {
       console.log("error adding document", error)
     })
@@ -134,6 +149,10 @@ class ToDo extends Component {
     console.log(this.state.showAllTasks)
   }
 
+  dateChange = dueDate => {
+    this.setState({ dueDate })
+  }
+
   render() {
     let completedFilter = this.state.showCompleted ?
       t => !t.completed :
@@ -151,6 +170,7 @@ class ToDo extends Component {
       .filter(textFilter)
       .filter(userFilter)
 
+    const { open } = this.state;
     return (
       <div className="App">
         <div className="container">
@@ -177,6 +197,22 @@ class ToDo extends Component {
           useDragHandle={true}
 
         />
+        <button onClick={this.onOpenModal}>Add Task</button>
+         <Modal 
+          open={open} 
+          onClose={this.onCloseModal} 
+          center 
+          styles={{modal:{width:"90%"}}} 
+          showCloseIcon={false}>
+            <AddTask
+              inputValue={this.state.inputValue}
+              dueDate={this.state.dueDate}
+              handleChange={this.handleChange.bind(this)}
+              addTask={this.addTask.bind(this)}
+              dateChange={this.dateChange}
+            />
+             
+         </Modal>
       </div>
     );
   }
