@@ -22,7 +22,7 @@ class ToDo extends Component {
       showCompleted: false,
       showAllTasks: true,
       tasks: [],
-      open: false, 
+      open: false,
     };
   }
 
@@ -41,7 +41,7 @@ class ToDo extends Component {
   onOpenModal = () => {
     this.setState({ open: true });
   };
- 
+
   onCloseModal = () => {
     this.setState({ open: false });
   };
@@ -61,7 +61,7 @@ class ToDo extends Component {
       user: this.props.currentUser.email,
       dueDate: this.state.dueDate
     }).then(() => {
-      this.setState({ 
+      this.setState({
         inputValue: "",
         dueDate: new Date(),
         open: false
@@ -164,7 +164,7 @@ class ToDo extends Component {
     let userFilter = this.state.showAllTasks ?
       t => t :
       t => t.user === this.props.currentUser.email
-      
+
     let filteredTasks = this.state.tasks
       .filter(completedFilter)
       .filter(textFilter)
@@ -175,8 +175,9 @@ class ToDo extends Component {
       <div className="App">
         <div className="container">
           <div>
+            <div className="form-group">
               <input
-                className="form-control col-md-3 mt-5 mb-2" className={{display: "inline-block"}}
+                className="form-control col-md-3 mt-5 mb-2" style={{display: "inline-block"}}
                 placeholder="Search"
                 onChange={this.filterTasks.bind(this)}
               />
@@ -186,6 +187,7 @@ class ToDo extends Component {
             <span onClick = {this.filterUserTasks}>
               {this.state.showAllTasks ? <FaGroup size={30}/> : <FaUser size={30}/>}
             </span>
+            </div>
           </div>
         </div>
         <TaskList
@@ -198,11 +200,11 @@ class ToDo extends Component {
 
         />
         <button onClick={this.onOpenModal}>Add Task</button>
-         <Modal 
-          open={open} 
-          onClose={this.onCloseModal} 
-          center 
-          styles={{modal:{width:"90%"}}} 
+         <Modal
+          open={open}
+          onClose={this.onCloseModal}
+          center
+          styles={{modal:{width:"90%"}}}
           showCloseIcon={false}>
             <AddTask
               inputValue={this.state.inputValue}
@@ -211,7 +213,7 @@ class ToDo extends Component {
               addTask={this.addTask.bind(this)}
               dateChange={this.dateChange}
             />
-             
+
          </Modal>
       </div>
     );
