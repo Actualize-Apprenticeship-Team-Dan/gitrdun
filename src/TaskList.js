@@ -4,7 +4,7 @@ import {SortableContainer} from 'react-sortable-hoc'
 
 const TaskList = SortableContainer (props  => {
     return (
-      <div className="container mt-5">
+      <div className="container">
         <div className="list-group">
           {
             props.tasks.map((task, index) => 
