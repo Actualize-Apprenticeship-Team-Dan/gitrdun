@@ -156,11 +156,11 @@ class ToDo extends Component {
         <div className="container">
           <div>
               <input
-                className="form-control col-md-3 mt-5 mb-2"
+                className="form-control col-md-3 mt-5 mb-2" className={{display: "inline-block"}}
                 placeholder="Search"
                 onChange={this.filterTasks.bind(this)}
               />
-            <span className="float-left" onClick = {this.filterCompleted.bind(this)}>
+            <span className="col-md-1"onClick = {this.filterCompleted.bind(this)}>
               {this.state.showCompleted ? <FaCheckCircleO size={30}/> : <FaCheckCircle size={30}/>}
             </span>
             <span onClick = {this.filterUserTasks}>
