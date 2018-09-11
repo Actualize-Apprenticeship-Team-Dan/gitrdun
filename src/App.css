@@ -52,8 +52,23 @@
   transition-delay: 0s;
 }
 
-.grid-container {
-  grid-template-columns: 1fr 1fr 1fr;
+.addtask-banner {
+  text-align: center;
+  padding: 1em;
+  background-color: #31B3DA;
+  color: #fff !important;
+  border-radius: 0.25rem;
+}
+
+.addtask-input {
+  border: 1px solid gray !important;
+}
+
+.title {
+  background: #31B3DA;
+  margin: 0;
+  padding: 20px;
+  color: white;
 }
 
 @keyframes App-logo-spin {

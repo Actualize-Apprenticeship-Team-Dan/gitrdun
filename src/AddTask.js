@@ -18,10 +18,11 @@ class AddTask extends Component {
   
   render() {
     return (
-      <div className="container">
-        <div className="input-group">    
+      <div className="container p-2">
+      <h4 className="text-center addtask-banner">Add Task and Due Date:</h4>
+        <div className="input-group mt-3">    
           <input 
-            className="form-control"
+            className="form-control addtask-input"
             value={this.props.inputValue}
             onChange={this.props.handleChange}
             onKeyUp={(e) => this.onEnter(e)}

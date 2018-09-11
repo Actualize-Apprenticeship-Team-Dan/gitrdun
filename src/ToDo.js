@@ -7,9 +7,11 @@ import FaCheckCircleO from 'react-icons/lib/fa/check-circle-o'
 import FaCheckCircle from 'react-icons/lib/fa/check-circle'
 import FaUser from 'react-icons/lib/fa/user'
 import FaGroup from 'react-icons/lib/fa/group'
+import FaPlusCircle from 'react-icons/lib/fa/plus-circle'
 import firebase from './firebase';
 import { arrayMove } from 'react-sortable-hoc'
 import Modal from 'react-responsive-modal';
+import ReactTooltip from 'react-tooltip'
 
 class ToDo extends Component {
   constructor(props) {
@@ -177,16 +179,20 @@ class ToDo extends Component {
           <div>
             <div className="form-group">
               <input
-                className="form-control col-md-3 mt-5 mb-2" style={{display: "inline-block"}}
+                className="form-control col-md-3 mb-2" style={{display: "inline-block"}}
                 placeholder="Search"
                 onChange={this.filterTasks.bind(this)}
               />
-            <span className="col-md-1"onClick = {this.filterCompleted.bind(this)}>
-              {this.state.showCompleted ? <FaCheckCircleO size={30}/> : <FaCheckCircle size={30}/>}
-            </span>
-            <span onClick = {this.filterUserTasks}>
-              {this.state.showAllTasks ? <FaGroup size={30}/> : <FaUser size={30}/>}
-            </span>
+              <span className="col-md-1" data-tip data-for="showCompleted" onClick = {this.filterCompleted.bind(this)}>
+                {this.state.showCompleted ? <FaCheckCircleO size={30}/> : <FaCheckCircle size={30}/>}
+              </span>
+              <ReactTooltip id="showCompleted"><span>Toggle Completed Tasks</span></ReactTooltip>
+              <span data-tip data-for="filterUserTasks" onClick = {this.filterUserTasks}>
+                {this.state.showAllTasks ? <FaGroup size={30}/> : <FaUser size={30}/>}
+              </span>
+              <ReactTooltip id="filterUserTasks"><span>Toggle User Tasks</span></ReactTooltip>
+              <span className="float-right mt-sm-0 mt-md-2" data-tip data-for="addTask" onClick={this.onOpenModal}><FaPlusCircle size={30} /></span>
+              <ReactTooltip id="addTask"><span>Add Task</span></ReactTooltip>
             </div>
           </div>
         </div>
@@ -199,7 +205,6 @@ class ToDo extends Component {
           useDragHandle={true}
 
         />
-        <button onClick={this.onOpenModal}>Add Task</button>
          <Modal
           open={open}
           onClose={this.onCloseModal}
