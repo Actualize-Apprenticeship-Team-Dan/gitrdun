@@ -6,6 +6,10 @@ import FaAngellist from 'react-icons/lib/fa/angellist';
 
 const Nav = (props) => (
     <div>
+        <h1 className="title" >
+          <FaAngellist />
+          {'Git R Dun'}
+        </h1>
       <nav className="custom-nav mb-5">
       {props.currentUser ?                 <a onClick={props.signOut}>Signout</a> : 
         <Fragment>
@@ -13,10 +17,6 @@ const Nav = (props) => (
           <Link to="signin">Sign In</Link>
         </Fragment>
       }
-        <h1 className="title" >
-          <FaAngellist />
-          {'Git R Dun'}
-        </h1>
       </nav>
     </div>
   )
